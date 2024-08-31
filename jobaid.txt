@@ -1,0 +1,58 @@
+EU  AMO  ITALIANO - BLOG
+
+Progetto
+- Blog in cui saranno postati articoli di grammatica
+- Un sistema di agendamento dove gli alunni potranno agendare la propria aula
+
+Versione
+- Php 8.2.12 
+- Framework CodeIgniter v4.5.4.0
+- Database MySql
+- Composer v2.7.8
+- https://getbootstrap.com/docs/4.0/components/dropdowns/ 
+
+Link Utili 
+file:///C:/xampp/htdocs/Recursos/startbootstrap-sb-admin-2-gh-pages/blank.html
+http://localhost:8080/
+http://localhost/phpmyadmin/index.php?route=/server/databases
+<?php echo base_url('back/'); ?>
+<?php echo $this->renderSection('title'); ?>
+
+
+Configurazione
+- Env -> .env 
+- app_baseURL = 'http://localhost:8080/'
+- CI_ENVIRONMENT = development
+
+
+##################################################### 1 - Operativo - Preparando o Ambiente
+1-Creiamo un Super Controller per Admin
+# php spark make:controller Super/HomeController
+
+2-Creiamo la rotta e importiamo il controller
+use App\Controllers\Super\HomeController; 
+route_to('super.home'); 
+$routes->get('super', [HomeController::class, 'index'], ['as' => 'super.home']);
+
+3-Copiamo la parte di styles
+4-Creiamo la view  return view('Back/Home/index');
+
+5-Dividendo il codice della zona admin in moduli
+6- View/Back/Layout/Main.php -> layout principale e creiamo la struttura attraverso il renderSection
+7- Creiamo la struttura nell index
+
+
+##################################################### 2 - Operativo - Unidades
+1 - Creiamo la Migration -> php spark make:migration create_table_units
+2 - Creare la tabella -> php spark migrate 
+3 - Criamo l'entitá e il model -> php spark make:model UnitModel
+    -> php spark make:entity Unit
+4 - Nel Model ritorniamo un entitá -> protected $returnType = Unit::class;
+5 - Criar o Controller -> php spark make:controller Super/UnitsController 
+  -> php spark routes (Vediamo le rotte)
+6 - Creiamo VIEW 
+7 - Usiamo Il tables.html
+8 - Usiamo la classe HTML Table class -> $table = new \CodeIgniter\View\Table();
+9 - Abbiamo creato le libraries para riportare la tabella delle unitá
+10 - Lavorando nella UnitService
+
