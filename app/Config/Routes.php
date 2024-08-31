@@ -21,7 +21,7 @@ $routes->group('super', static function ($routes) {
     //Rota delle UNIT
     $routes->group('units', static function ($routes) {
         $routes->get('/', [UnitsController::class, 'index'], ['as' => 'units']);
-        $routes->get('edit/(:num)', [UnitsController::class, 'edit/$1'], ['as' => 'units/edit']);
+        $routes->get('edit/(:num)', [UnitsController::class, 'edit/$1'], ['as' => 'units.edit']);
     });
 });
 

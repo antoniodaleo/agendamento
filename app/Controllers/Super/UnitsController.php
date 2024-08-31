@@ -11,7 +11,10 @@ use CodeIgniter\View\RendererInterface;
 class UnitsController extends BaseController
 {
 
+    // @var unitservice
     private UnitService $unitService; 
+    
+    // @var unitmodel
     private UnitModel $unitModel; 
 
 
@@ -48,13 +51,9 @@ class UnitsController extends BaseController
     public function edit(int $id)
     {
 
-        $unit =  $this->unitModel->findOfFail($id); 
-
-        dd($unit); 
-
         $data = [
             'title' => 'Editar unidade',
-            'units' => $this->unitService->renderUnits(),
+            'unit' => $this->unitModel->findOfFail($id),
         ]; 
 
        
