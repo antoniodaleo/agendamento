@@ -1,7 +1,26 @@
-EU  AMO  ITALIANO - BLOG
+Agendamento - BLOG
+
+GIT
+https://github.com/antoniodaleo/agendamento
+- git init
+- git status (Mostra lo stato)
+- git add .
+- git commit -a -m "First commit"
+- git config --global user.email "you@example.com"
+- git config --global user.name "Your Name"
+- git commit -a -m "First commit"
+
+VAMOS NO GITHUB E CRIAMOS UM REPOSITORIO REMOTO
+- crea um new repositório
+- git remote add origin https://github.com/antoniodaleo/agendamento.git (Connection)
+- git push origin master (Inserisco user e pass)
+
+ENVIAR ALTERAÇÕES
+
+
+
 
 Progetto
-- Blog in cui saranno postati articoli di grammatica
 - Un sistema di agendamento dove gli alunni potranno agendare la propria aula
 
 Versione
