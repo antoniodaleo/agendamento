@@ -36,7 +36,7 @@ http://localhost:8080/
 http://localhost/phpmyadmin/index.php?route=/server/databases
 <?php echo base_url('back/'); ?>
 <?php echo $this->renderSection('title'); ?>
-
+ <?php  echo $this->include('Back/Layout/_messages') ?>
 
 Configurazione
 - Env -> .env 

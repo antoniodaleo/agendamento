@@ -63,16 +63,29 @@ abstract class BaseController extends Controller
         @param boolean
     
     */
-    protected function checkMethod(string $method){
-        
-        $method = strtolower($method); 
-        
-        if(!$this->request->is($method)){
+    protected function checkMethod(string $method)
+    {
 
-            throw new PageNotFoundException("Pagina não encontrada"); 
-            
+        $method = strtolower($method);
+
+        if (!$this->request->is($method)) {
+
+            throw new PageNotFoundException("Pagina não encontrada");
         }
 
-        return true; 
+        return true;
+    }
+
+    /*
+        Remove do post a posicao '_method' do spoofing. 
+    
+    */
+    protected function clearRequest(): array
+    {
+
+        $data = $this->request->getPost();
+        unset($data['_method']);
+
+        return $data;
     }
 }

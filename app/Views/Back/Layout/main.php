@@ -361,7 +361,7 @@
                 </nav>
                 <!-- End of Topbar -->
 
-
+                <?php  echo $this->include('Back/Layout/_messages') ?>
 
                 <!-- Conteudo  -->
                 <?php echo $this->renderSection('content'); ?>

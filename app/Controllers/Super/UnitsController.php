@@ -6,20 +6,20 @@ use App\Controllers\BaseController;
 use App\Libraries\UnitService;
 use App\Models\UnitModel;
 use CodeIgniter\Config\Factories;
-use CodeIgniter\View\RendererInterface; 
+use CodeIgniter\View\RendererInterface;
 
 
 class UnitsController extends BaseController
 {
 
     // @var unitservice
-    private UnitService $unitService; 
-    
+    private UnitService $unitService;
+
     // @var unitmodel
-    private UnitModel $unitModel; 
+    private UnitModel $unitModel;
 
 
-    
+
     public function __construct()
     {
         $this->unitService = Factories::class(UnitService::class);
@@ -40,11 +40,11 @@ class UnitsController extends BaseController
         $data = [
             'title' => 'Unidades',
             'units' => $this->unitService->renderUnits(),
-        ]; 
+        ];
 
-       
 
-        return view('Back/Units/index', $data); 
+
+        return view('Back/Units/index', $data);
     }
 
 
@@ -57,19 +57,39 @@ class UnitsController extends BaseController
             'unit'          => $unit = $this->unitModel->findOfFail($id),
             'timesInterval' => $this->unitService->renderTimeInterval($unit->servicetime)
 
-        ]; 
+        ];
 
-    
-        return view('Back/Units/edit', $data); 
+
+        return view('Back/Units/edit', $data);
     }
 
 
-    public function update(int $id){
+    public function update(int $id)
+    {
 
-        $unit = $this->unitModel->findOfFail($id); 
-        //dd($unit);
-        
-        
+        $this->checkMethod('put');
 
+        $unit = $this->unitModel->findOfFail($id);
+
+        //dd($this->request->getPost());
+
+        $unit->fill($this->clearRequest());
+
+        if (!$unit->hasChanged()) {
+
+            return redirect()->back()->with('info', 'Não ha dados para atualizar');
+        }
+
+        $success = $this->unitModel->save($unit);
+
+        //dd($this->unitModel->errors());
+
+        if (!$success) {
+
+            return redirect()->back()
+                ->withInput()
+                ->with('danger', 'Verifique os erros e tente novamente')
+                ->with('errorsValidation', $this->unitModel->errors());
+        }
     }
 }
