@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use CodeIgniter\Controller;
+use CodeIgniter\Exceptions\PageNotFoundException;
 use CodeIgniter\HTTP\CLIRequest;
 use CodeIgniter\HTTP\IncomingRequest;
 use CodeIgniter\HTTP\RequestInterface;
@@ -67,7 +68,9 @@ abstract class BaseController extends Controller
         $method = strtolower($method); 
         
         if(!$this->request->is($method)){
-            return $this->response->setStatusCode(405)->setBody('Method Not Allowed'); 
+
+            throw new PageNotFoundException("Pagina não encontrada"); 
+            
         }
 
         return true; 

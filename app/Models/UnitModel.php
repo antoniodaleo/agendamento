@@ -15,16 +15,16 @@ class UnitModel extends Model
     protected $useSoftDeletes   = false; // Vamos excluir o registro 
     protected $protectFields    = true;
     protected $allowedFields    = [
-            'name' ,
-            'email' , 
-            'phone' , 
-            'coordinator' , 
-            'address' ,
-            'services' ,
-            'starttime',
-            'endtime' ,
-            'servicetime' ,
-            'active' ,
+        'name',
+        'email',
+        'phone',
+        'coordinator',
+        'address',
+        'services',
+        'starttime',
+        'endtime',
+        'servicetime',
+        'active',
     ]; // Dobbiamo definire i campi della tabella che possono essere editati
 
 
@@ -41,8 +41,29 @@ class UnitModel extends Model
     protected $updatedField  = 'updated_at';
 
     // Validation
-    protected $validationRules      = [];
-    protected $validationMessages   = [];
+    protected $validationRules      = [
+        'id'            => 'permit_empty|is_natural_no_zero',
+        'name'          => 'required|max_length[69]|is_unique[units.name,id,{id}]',
+        'phone'         => 'required|exact_length[14]|is_unique[units.phone,id,{id}]',
+        'email'         => 'required|valida_email|max_length[99]|is_unique[units.email,id,{id}]',
+        'coordinator'   => 'required|max_length[69]',
+        'address'       => 'required|max_length[128]',
+        'starttime'     => 'required',
+        'endtime'       => 'required',
+        'servicetime'   => 'required',
+    ];
+
+    
+
+    protected $validationMessages   = [
+        'name' => [
+            'required' => 'Obrigatorio', 
+            'max_length' => 'Maximo 69 caracteres', 
+            'is_unique' => 'Já existe'
+        ], 
+    ];
+
+
     protected $skipValidation       = false;
     protected $cleanValidationRules = true;
 
@@ -59,12 +80,11 @@ class UnitModel extends Model
 
 
 
-    public function findOfFail(int|string $id): object {
+    public function findOfFail(int|string $id): object
+    {
 
-        $row = $this->find($id); 
+        $row = $this->find($id);
 
-        return $row ?? throw new PageNotFoundException("Registro {$id} não encontrado "); 
-
+        return $row ?? throw new PageNotFoundException("Registro {$id} não encontrado ");
     }
-
 }

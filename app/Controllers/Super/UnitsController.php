@@ -8,6 +8,7 @@ use App\Models\UnitModel;
 use CodeIgniter\Config\Factories;
 use CodeIgniter\View\RendererInterface; 
 
+
 class UnitsController extends BaseController
 {
 
@@ -52,12 +53,23 @@ class UnitsController extends BaseController
     {
 
         $data = [
-            'title' => 'Editar unidade',
-            'unit' => $this->unitModel->findOfFail($id),
+            'title'         => 'Editar unidade',
+            'unit'          => $unit = $this->unitModel->findOfFail($id),
+            'timesInterval' => $this->unitService->renderTimeInterval($unit->servicetime)
+
         ]; 
 
-       
-
+    
         return view('Back/Units/edit', $data); 
+    }
+
+
+    public function update(int $id){
+
+        $unit = $this->unitModel->findOfFail($id); 
+        //dd($unit);
+        
+        
+
     }
 }
