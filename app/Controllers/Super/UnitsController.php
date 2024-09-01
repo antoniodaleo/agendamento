@@ -3,6 +3,7 @@
 namespace App\Controllers\Super;
 
 use App\Controllers\BaseController;
+use App\Entities\Unit;
 use App\Libraries\UnitService;
 use App\Models\UnitModel;
 use CodeIgniter\Config\Factories;
@@ -47,6 +48,36 @@ class UnitsController extends BaseController
         return view('Back/Units/index', $data);
     }
 
+    public function new()
+    {
+        $data = [
+            'title' => 'Criar Unidade',
+            'unit' => new Unit(),
+            'timesInterval' => $this->unitService->renderTimeInterval()
+        ];
+
+
+        return view('Back/Units/new', $data);
+    }
+
+    public function create()
+    {
+
+        $this->checkMethod('post');
+
+        $unit = new Unit($this->clearRequest());
+
+
+        if (!$this->unitModel->insert($unit)) {
+
+            return redirect()->back()
+                ->withInput()
+                ->with('danger', 'Verifique os erros e tente novamente')
+                ->with('errorsValidation', $this->unitModel->errors());
+        }
+
+        return redirect()->route('units')->with('success', 'Os dados foram atualizos!');
+    }
 
 
     public function edit(int $id)
@@ -59,6 +90,7 @@ class UnitsController extends BaseController
 
         ];
 
+        dd($unit);
 
         return view('Back/Units/edit', $data);
     }
@@ -93,9 +125,5 @@ class UnitsController extends BaseController
         }
 
         return redirect()->route('units')->with('success', 'Os dados foram atualizos!');
-
     }
-
-
-    
 }

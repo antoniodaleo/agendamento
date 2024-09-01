@@ -26,10 +26,9 @@
             <a href="<?php echo route_to('units.new') ?>" class="btn btn-success btn-sm float-right" >Nova</a>
         </div>
         <div class="card-body">
-            <?php echo form_open(route_to('units.update', $unit->id), hidden: ['_method' => 'PUT']); ?>
+            <?php echo form_open(route_to('units.create')); ?>
 
             <?php echo $this->include('Back/Units/_form'); ?>
-
            
 
             <?php echo form_close(); ?>
@@ -47,5 +46,7 @@
 
 <script src="<?php  echo base_url('back/mask/jquery.mask.min.js') ?>"></script>
 <script src="<?php  echo base_url('back/mask/app.js') ?>"></script>
+
+
 
 <?php echo $this->endSection();    ?>

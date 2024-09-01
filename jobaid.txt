@@ -97,3 +97,6 @@ $routes->get('super', [HomeController::class, 'index'], ['as' => 'super.home']);
 14 - Trabalhando no form edit
 15 - Criando metodo na libraries UnitService-> serviceTimes
 16 - Trabalhando nas validaçoes - Aula 25
+17 - Criamos php spark make:entity MyBaseEntity
+18 - Utilizamos view cells - Aula 32
+    php spark make:cell ButtonsCell
