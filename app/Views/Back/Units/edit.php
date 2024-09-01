@@ -32,6 +32,8 @@
                 <div class="form-group col-md-4">
                     <label for="name">Nome</label>
                     <input type="text" class="form-control" value="<?php echo old('name', $unit->name);  ?>" id="name" name="name" aria-describedby="nameHelp" placeholder="Nome">
+                    <?php echo show_error_input('name') ?>
+                
                 </div>
                 <div class="form-group col-md-4">
                     <label for="phone">Telefone</label>

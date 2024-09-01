@@ -91,5 +91,11 @@ class UnitsController extends BaseController
                 ->with('danger', 'Verifique os erros e tente novamente')
                 ->with('errorsValidation', $this->unitModel->errors());
         }
+
+        return redirect()->route('units')->with('success', 'Os dados foram atualizos!');
+
     }
+
+
+    
 }
