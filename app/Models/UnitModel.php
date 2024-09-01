@@ -69,15 +69,25 @@ class UnitModel extends Model
 
     // Callbacks
     protected $allowCallbacks = true;
-    protected $beforeInsert   = [];
+    protected $beforeInsert   = ['escapeData'];
     protected $afterInsert    = [];
-    protected $beforeUpdate   = [];
+    protected $beforeUpdate   = ['escapeData'];
     protected $afterUpdate    = [];
     protected $beforeFind     = [];
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
+
+    protected function escapeData(array $data): array {
+
+        if(!isset($data['data'])){ 
+            return $data; 
+        }
+
+        return esc($data); 
+
+    }
 
 
     public function findOfFail(int|string $id): object

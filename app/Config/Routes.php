@@ -26,6 +26,8 @@ $routes->group('super', static function ($routes) {
         $routes->get('edit/(:num)', [UnitsController::class, 'edit/$1'], ['as' => 'units.edit']);
         $routes->post('create', [UnitsController::class, 'create/$1'], ['as' => 'units.create']);
         $routes->put('update/(:num)', [UnitsController::class, 'update/$1'], ['as' => 'units.update']);
+        $routes->put('action/(:num)', [UnitsController::class, 'action/$1'], ['as' => 'units.action']);
+        $routes->delete('destroy/(:num)', [UnitsController::class, 'destroy/$1'], ['as' => 'units.destroy']);
 
     });
 });

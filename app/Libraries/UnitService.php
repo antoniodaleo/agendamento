@@ -9,17 +9,17 @@ use App\Models\UnitModel;
 class UnitService extends MyBaseService
 {
     private static array $serviceTimes = [
-        '10 minutes' => '10 minutos', 
-        '15 minutes' => '15 minutos', 
-        '30 minutes' => '30 minutos', 
-        '1 hour' => '1 hora', 
+        '10 minutes' => '10 minutos',
+        '15 minutes' => '15 minutos',
+        '30 minutes' => '30 minutos',
+        '1 hour' => '1 hora',
         '2 hour' => '2 hora',
         '3 hour' => '3 hora',
 
 
         // Intervalos validos usados pela classe do PHP DateTimeInterval
 
-    ]; 
+    ];
 
     public function renderUnits(): string
     {
@@ -32,7 +32,7 @@ class UnitService extends MyBaseService
             return self::TEXT_FOR_NO_DATA;
         }
 
-        $this->htmlTable->setHeading('Ações', 'Nome', 'E-mail', 'Telefone', 'Inicio', 'Fim', 'Criado');
+        $this->htmlTable->setHeading('Ações', 'Nome', 'E-mail', 'Telefone', 'Inicio', 'Fim','Situação', 'Criado');
 
         foreach ($units as $unit) {
             $this->htmlTable->addRow([
@@ -42,6 +42,7 @@ class UnitService extends MyBaseService
                 $unit->phone,
                 $unit->starttime,
                 $unit->endtime,
+                $unit->status(),
                 $unit->created_at,
             ]);
         }
@@ -54,16 +55,17 @@ class UnitService extends MyBaseService
     * Dropdown com as opc de tempo necessario para casa atendimento 
 
     */
-    public function renderTimeInterval(?string $serviceTime = null): string{
+    public function renderTimeInterval(?string $serviceTime = null): string
+    {
 
-        $options = []; 
+        $options = [];
 
-        $options[''] = '---Escolha---'; 
-        
+        $options[''] = '---Escolha---';
 
 
-        foreach(self::$serviceTimes as $key => $time ){
-            $options[$key]  = $time; 
+
+        foreach (self::$serviceTimes as $key => $time) {
+            $options[$key]  = $time;
         }
 
 
@@ -80,7 +82,7 @@ class UnitService extends MyBaseService
     */
 
 
-    private function renderBtnActions(Unit $unit): string 
+    private function renderBtnActions(Unit $unit): string
     {
         //dd($unit); 
         $btnActions = '<div class="btn-group">';
@@ -90,20 +92,28 @@ class UnitService extends MyBaseService
                             aria-haspopup="true" 
                             aria-expanded="false">Ações
                         </button>';
-        $btnActions .=  '<div class="dropdown-menu">'; 
-        $btnActions .=  anchor(route_to('units.edit', $unit->id), 'Editar', ['class' => 'dropdown-item']); 
-        $btnActions .=  '<a class="dropdown-item" href="#">Action</a>'; 
-        $btnActions .=  '<a class="dropdown-item" href="#">Action</a>'; 
+        $btnActions .=  '<div class="dropdown-menu">';
+        $btnActions .=  anchor(route_to('units.edit', $unit->id), 'Editar', ['class' => 'dropdown-item']);
+        $btnActions .=  view_cell(
+            library: 'ButtonsCell::action',
+            params: [
+                'route'         => route_to('units.action', $unit->id),
+                'text_action'   => $unit->textToAction(),
+                'activated'     => $unit->isActivated(),
+                'btn_class'     => 'dropdown-item py-2',
+            ]
+        );
+        $btnActions .=  view_cell(
+            library: 'ButtonsCell::destroy',
+            params: [
+                'route'         => route_to('units.destroy', $unit->id),
+                'btn_class'     => 'dropdown-item py-2',
+            ]
+        );
         $btnActions .=  '</div>
-                        </div>'; 
+                        </div>';
 
 
-       return $btnActions;
-
+        return $btnActions;
     }
-
-
-
-
-
 }

@@ -90,7 +90,7 @@ class UnitsController extends BaseController
 
         ];
 
-        dd($unit);
+        
 
         return view('Back/Units/edit', $data);
     }
@@ -126,4 +126,32 @@ class UnitsController extends BaseController
 
         return redirect()->route('units')->with('success', 'Os dados foram atualizos!');
     }
+
+    public function action(int $id)
+    {
+
+        $this->checkMethod('put');
+
+        $unit = $this->unitModel->findOfFail($id);
+        $unit->setAction();
+
+        $this->unitModel->save($unit); 
+
+        return redirect()->route('units')->with('success', 'Os dados foram atualizos!');
+    }
+
+    public function destroy(int $id)
+    {
+
+        $this->checkMethod('delete');
+
+        $unit = $this->unitModel->findOfFail($id);
+
+        $this->unitModel->delete($unit->id); 
+
+        return redirect()->route('units')->with('success', 'Registro eliminado!');
+    }
+
+
+
 }
