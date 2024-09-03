@@ -100,3 +100,7 @@ $routes->get('super', [HomeController::class, 'index'], ['as' => 'super.home']);
 17 - Criamos php spark make:entity MyBaseEntity
 18 - Utilizamos view cells - Aula 32
     php spark make:cell ButtonsCell
+
+################################################################################## 2 - Servicos
+1 -  php spark make:migration create_table_services
+2 - Preparamos o MyBaseModel 
