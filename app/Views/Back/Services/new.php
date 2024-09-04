@@ -23,12 +23,12 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary"><?php echo $title;  ?></h6>
-            <a href="<?php echo route_to('units.new') ?>" class="btn btn-success btn-sm float-right" >Nova</a>
+            <a href="<?php echo route_to('services.new') ?>" class="btn btn-success btn-sm float-right" >Nova</a>
         </div>
         <div class="card-body">
-            <?php echo form_open(route_to('units.create')); ?>
+            <?php echo form_open(route_to('services.create')); ?>
 
-            <?php echo $this->include('Back/Units/_form'); ?>
+            <?php echo $this->include('Back/Services/_form'); ?>
            
 
             <?php echo form_close(); ?>

@@ -3,6 +3,7 @@
 use App\Controllers\Super\HomeController;
 use App\Controllers\Super\ServicesController;
 use App\Controllers\Super\UnitsController;
+use App\Controllers\UnitsServicesController;
 use CodeIgniter\Router\RouteCollection;
 
 /**
@@ -30,6 +31,10 @@ $routes->group('super', static function ($routes) {
         $routes->put('action/(:num)', [UnitsController::class, 'action/$1'], ['as' => 'units.action']);
         $routes->delete('destroy/(:num)', [UnitsController::class, 'destroy/$1'], ['as' => 'units.destroy']);
 
+
+        // rotas dos servicos da unidade
+        $routes->get('services/(:num)', [UnitsServicesController::class, 'services/$1'], ['as' => 'units.services']);
+        
     });
 
 
